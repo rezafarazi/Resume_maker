@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Resume/Theme/Main_Theme.cshtml";
+}
+
+
+
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" href="javascript:;">جست و جو</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+
+        </div>
+    </div>
+</nav>
+<!-- End Navbar -->
+
+
+
+
+
+
+<!--Seach Content Start-->
+<div class="content" style="min-height:max-content;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12" id="categories_is_empty">
+                
+                
+                <!--Search Form Start-->
+                <div class="card card-stats castum-form-divition" style="padding:14px;">
+                    <!--Card Title Start-->
+                    <p style="text-align:right;">جست و جو</p>
+                    <!--Card Title End-->
+                    <input id="seach_box" type="search" placeholder="بخشی از نام یا شماره یا نام خانوادگی" style="width:100%;" onkeypress="PerssEnter_Key_OnSearch(event)"/>
+                    <a onclick="OnCLick_Search_Get_Search()" style="cursor:pointer;width: 100%;background: #9c27b0;border-radius: 4px;color: #FFF;text-align: center;padding: 8px;">جست و جو</a>
+                </div>
+                <!--Search Form End-->
+
+
+                <!--Search Result Is Empty Start-->
+                <div id="search_result_empty" class="card card-stats castum-form-divition" style="padding:14px;display:none;">
+                    <div style="width:100%;display:flex;justify-content:center;align-items:center;">
+                        <div>
+                            <img style="text-align:center;margin:14px auto;display:block;" src="~/Assets/assets/img/empty.png" width="100px" />
+                            <p style="text-align:center;margin:10px auto;display:block;">هیچ موردی یافت نشد</p>
+                        </div>
+                    </div>
+                </div>
+                <!--Search Result Is Empty End-->
+
+
+
+                <!--Search Result Start-->
+                <div id="search_result" class="card card-stats castum-form-divition" style="padding:14px;display:none;">
+                    <div style="width:100%;display:flex;justify-content:center;align-items:center;">
+                        <div class="container">
+                            <div class="row" id="search_result_not_empty">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Search Result End-->
+
+
+
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+<!--Seach Content End-->
+
+
+
+
+
+
+
+
+
+
+
+<!--Dialog Start-->
+<div id="dialog">
+    <i class="fa fa-close" onclick="close_dialog_event(this)"></i>
+    <div>
+        <iframe id="dialog_iframe" width="100%" height="100%"></iframe>
+    </div>
+</div>
+
+<style>
+    #dialog {
+        width: 100vw;
+        height: 100vh;
+        background: #11111199;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display:none;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+    }
+
+        #dialog > i {
+            position: fixed;
+            top: 14px;
+            left: 14px;
+            background: #F00;
+            color: #FFF;
+            padding: 5px 7px;
+            border-radius: 100%;
+            cursor: pointer;
+        }
+
+        #dialog > div {
+            width: 85vw;
+            height: 85vh;
+            background: #FFF;
+            border-radius: 10px;
+            overflow: hidden;
+            outline: none;
+        }
+
+            #dialog > div > iframe {
+                outline: none;
+            }
+</style>
+<!--Dialog End-->
+
+
+<script src="~/Assets/assets/demo/demo.js"></script>

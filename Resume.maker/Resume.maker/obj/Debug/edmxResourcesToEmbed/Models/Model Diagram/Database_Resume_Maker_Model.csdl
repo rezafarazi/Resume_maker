@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Database_Resume_Maker_Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="Database_Resume_Maker_ModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Users_tbl" EntityType="Database_Resume_Maker_Model.Users_tbl" />
+    <EntitySet Name="Categories_tbl" EntityType="Database_Resume_Maker_Model.Categories_tbl" />
+    <EntitySet Name="viewers_tbl" EntityType="Database_Resume_Maker_Model.viewers_tbl" />
+    <EntitySet Name="cites_tbl" EntityType="Database_Resume_Maker_Model.cites_tbl" />
+    <AssociationSet Name="Categories_tblUsers_tbl" Association="Database_Resume_Maker_Model.Categories_tblUsers_tbl">
+      <End Role="Categories_tbl" EntitySet="Categories_tbl" />
+      <End Role="Users_tbl" EntitySet="Users_tbl" />
+    </AssociationSet>
+    <AssociationSet Name="Users_tblviewers_tbl" Association="Database_Resume_Maker_Model.Users_tblviewers_tbl">
+      <End Role="Users_tbl" EntitySet="Users_tbl" />
+      <End Role="viewers_tbl" EntitySet="viewers_tbl" />
+    </AssociationSet>
+    <AssociationSet Name="cites_tblUsers_tbl" Association="Database_Resume_Maker_Model.cites_tblUsers_tbl">
+      <End Role="cites_tbl" EntitySet="cites_tbl" />
+      <End Role="Users_tbl" EntitySet="Users_tbl" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Users_tbl">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" />
+    <Property Name="family" Type="String" Nullable="false" />
+    <Property Name="username" Type="String" Nullable="false" />
+    <Property Name="password" Type="String" Nullable="false" />
+    <Property Name="login_token" Type="String" Nullable="false" />
+    <Property Name="date" Type="String" Nullable="false" />
+    <Property Name="birth_date" Type="String" Nullable="false" />
+    <Property Name="enable_flag" Type="String" Nullable="false" />
+    <Property Name="resume_json" Type="String" Nullable="false" />
+    <Property Name="certificates_json" Type="String" Nullable="false" />
+    <Property Name="phone" Type="String" Nullable="false" />
+    <Property Name="address" Type="String" Nullable="false" />
+    <Property Name="city" Type="String" Nullable="false" />
+    <Property Name="user_type" Type="String" Nullable="false" />
+    <Property Name="work_years" Type="String" Nullable="false" />
+    <Property Name="last_edit" Type="String" Nullable="false" />
+    <Property Name="profile_image" Type="String" Nullable="false" />
+    <Property Name="category_id" Type="String" Nullable="false" />
+    <NavigationProperty Name="Categories_tbl" Relationship="Database_Resume_Maker_Model.Categories_tblUsers_tbl" FromRole="Users_tbl" ToRole="Categories_tbl" />
+    <NavigationProperty Name="viewers_tbl" Relationship="Database_Resume_Maker_Model.Users_tblviewers_tbl" FromRole="Users_tbl" ToRole="viewers_tbl" />
+    <NavigationProperty Name="cites_tbl" Relationship="Database_Resume_Maker_Model.cites_tblUsers_tbl" FromRole="Users_tbl" ToRole="cites_tbl" />
+  </EntityType>
+  <EntityType Name="Categories_tbl">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="String" Nullable="false" />
+    <Property Name="enable_flag" Type="String" Nullable="false" />
+    <Property Name="top_cat_id" Type="String" Nullable="false" />
+    <NavigationProperty Name="Users_tbl" Relationship="Database_Resume_Maker_Model.Categories_tblUsers_tbl" FromRole="Categories_tbl" ToRole="Users_tbl" />
+  </EntityType>
+  <EntityType Name="viewers_tbl">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_id" Type="String" Nullable="false" />
+    <Property Name="user_viewer_id" Type="String" Nullable="false" />
+    <Property Name="date_time" Type="String" Nullable="false" />
+    <NavigationProperty Name="Users_tbl" Relationship="Database_Resume_Maker_Model.Users_tblviewers_tbl" FromRole="viewers_tbl" ToRole="Users_tbl" />
+  </EntityType>
+  <EntityType Name="cites_tbl">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="city_name" Type="String" Nullable="false" />
+    <Property Name="subcity" Type="String" Nullable="false" />
+    <Property Name="enbale_flag" Type="String" Nullable="false" />
+    <NavigationProperty Name="Users_tbl" Relationship="Database_Resume_Maker_Model.cites_tblUsers_tbl" FromRole="cites_tbl" ToRole="Users_tbl" />
+  </EntityType>
+  <Association Name="Categories_tblUsers_tbl">
+    <End Type="Database_Resume_Maker_Model.Categories_tbl" Role="Categories_tbl" Multiplicity="1" />
+    <End Type="Database_Resume_Maker_Model.Users_tbl" Role="Users_tbl" Multiplicity="*" />
+  </Association>
+  <Association Name="Users_tblviewers_tbl">
+    <End Type="Database_Resume_Maker_Model.Users_tbl" Role="Users_tbl" Multiplicity="1" />
+    <End Type="Database_Resume_Maker_Model.viewers_tbl" Role="viewers_tbl" Multiplicity="*" />
+  </Association>
+  <Association Name="cites_tblUsers_tbl">
+    <End Type="Database_Resume_Maker_Model.cites_tbl" Role="cites_tbl" Multiplicity="1" />
+    <End Type="Database_Resume_Maker_Model.Users_tbl" Role="Users_tbl" Multiplicity="*" />
+  </Association>
+</Schema>

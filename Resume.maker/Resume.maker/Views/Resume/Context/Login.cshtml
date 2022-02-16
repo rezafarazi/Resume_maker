@@ -1,0 +1,36 @@
+﻿@{ 
+    Layout = null;
+}
+
+<title>رزومه ساز - ورود</title>
+<!--Mobile Scale Friendly Start-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--Mobile Scale Friendly End-->
+<link rel="stylesheet" href="~/Assets/css/style.css">
+<!--Main Content Start-->
+<div class="container" id="container">
+    <div class="form-container sign-in-container">
+        <form method="POST">
+            <h1>ورود</h1>
+            <span>برای ورود اطلاعات خواسته شده رو پر کنید</span>
+            <input type="text" placeholder="نام کاربری" id="username" name="username" />
+            <input type="password" placeholder="رمزعبور" id="password" name="password" />
+            <input type="submit" value="ورود" class="btn" style="cursor:pointer;"/>
+            <a style="cursor:pointer;" href="~/Signup">ثبت نام</a>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button onclick="OnClick_Submit(this)" class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>سلام رفیق</h1>
+                <p>این سرویس سرویس رزومه ساز هست و شما میتونید با این یک دونه رزومه برای خودت بسازی</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Main Content End-->

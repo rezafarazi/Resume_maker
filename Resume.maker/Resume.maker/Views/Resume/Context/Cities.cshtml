@@ -1,0 +1,179 @@
+﻿@{
+    Layout = "~/Views/Resume/Theme/Main_Theme.cshtml";
+    List<Resume.maker.Models.Cites_tbl> Cities = Resume.maker.Functions.Statics_Front.Statics_Front.Get_All_Cities();
+}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" href="javascript:;">شهرها</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+
+        </div>
+    </div>
+</nav>
+<!-- End Navbar -->
+
+
+<!--Main Content Start-->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <!--New City Start-->
+            <div class="col-md-6" id="categories_is_empty">
+                <div class="card card-stats castum-form-divition" style="padding:14px;">
+                    <div class="navbar-wrapper">
+                        
+                        <!--Card Title Start-->
+                        <p style="text-align:right;">شهر جدید</p>
+                        <!--Card Title End-->
+
+                        <!--New City Form Start-->
+                        <form method="post">
+                            <input style="width:100%;" type="text" placeholder="دسته بندی جدید" name="name"/>
+                            <select style="width:100%;" class="form-control" id="category_status" name="top_id">
+                                <option value=""></option>
+                                @{
+                                    for (int i = 0; i < Cities.Count; i++)
+                                    {
+                                        if (!Cities[i].city_name.Equals("ندارد"))
+                                        {
+                                           <option value="@Cities[i].id">@Cities[i].city_name</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                            <br />
+                            <input type="submit" class="btn btn-primary pull-right" value="تایید" style="width:100%;" />
+                        </form>
+                        <!--New City Form End-->
+
+                    </div>
+                </div>
+            </div>
+            <!--New City End-->
+
+
+
+
+
+
+            <!--Update City Start-->
+            <div class="col-md-6" id="updatebox_city" style="display:none;">
+                <div class="card card-stats castum-form-divition" style="padding:14px;">
+                    <div class="navbar-wrapper">
+
+                        <!--Card Title Start-->
+                        <p style="text-align:right;">به روز رسانی شهر</p>
+                        <!--Card Title End-->
+                        <!--New City Form Start-->
+                        <form method="post" action="~/Edit_City">
+                            <input style="width:100%;display:none;" type="text" placeholder="نام" name="id" id="updatebox_city_id_box" />
+                            <input style="width:100%;" type="text" placeholder="نام" name="name"  id="updatebox_city_name_box"/>
+                            <select style="width:100%;" class="form-control" id="updatebox_city_status_box" name="status">
+                                <option value="visible">قابل مشاهده</option>
+                                <option value="hide">غیرقابل مشاهده</option>
+                            </select>
+                            <br />
+                            <input type="submit" class="btn btn-primary pull-right" value="تایید" style="width:100%;" />
+                        </form>
+                        <!--New City Form End-->
+
+                    </div>
+                </div>
+            </div>
+            <!--Update City End-->
+
+
+
+
+
+
+            <!--All City Start-->
+            <div class="col-md-12" id="categories_is_empty">
+                <div class="card card-stats castum-form-divition" style="padding:14px;">
+                    <div class="navbar-wrapper">
+
+                        <!--Card Title Start-->
+                        <p style="text-align:right;">شهرها</p>
+                        <!--Card Title End-->
+                        
+                        <table class="table">
+                            <thead>
+                                <th>ردیف</th>
+                                <th>نام شهر</th>
+                                <th>استان</th>
+                                <th>وضعیت</th>
+                                <th>حذف</th>
+                                <th>عملیات</th>
+                            </thead>
+                            <tbody>
+                                @{ 
+                                    int count_row = 1;
+                                }
+                                @for (int i = 0; i < Cities.Count; i++)
+                                {
+                                    if (!Cities[i].city_name.Equals("ندارد"))
+                                    {
+                                        <tr>
+                                            <td>@count_row</td>
+                                            <td>@Cities[i].city_name</td>
+
+                                            @if (Cities[i].subcity==null || Cities[i].subcity == string.Empty)
+                                            {
+                                                <td>استان</td>
+                                            }
+                                            else
+                                            {
+                                                <td>@Resume.maker.Functions.Statics.Static.Get_City_Name_From_Id(Cities[i].subcity)</td>
+                                            }
+                                            
+
+                                            @if (Cities[i].enable_flag == true)
+                                            {
+                                                <td>فعال</td>
+                                            }
+                                            else
+                                            {
+                                                <td>غیرفعال</td>
+                                            }
+
+                                            <td><a href="~/Delete_City/@Cities[i].id"><i style="color:#F00;" class="fa fa-close"></i></a></td>
+                                            <td><i onclick="onclick_edit_city(@Cities[i].id)" style="color:#9c27b0;cursor:pointer;" class="fa fa-edit"></i></td>
+                                        </tr>
+                                            count_row++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <!--All City End-->
+
+
+
+
+        </div>
+    </div>
+</div>
+<!--Main Content End-->
+                    
+
+<style>
+    table
+    {
+        text-align:center;
+    }
+</style>
+
+<script src="~/Assets/assets/demo/demo.js"></script>

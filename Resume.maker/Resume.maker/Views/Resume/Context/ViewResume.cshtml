@@ -1,0 +1,156 @@
+﻿@model Resume.maker.Models.Output_Models.User_Model
+@{
+    Layout = "~/Views/Resume/Theme/Main_Theme.cshtml";
+}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" href="javascript:;">مشاهده رزومه</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+
+        </div>
+    </div>
+</nav>
+<!-- End Navbar -->
+
+
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!--َUser Profile-->
+            <div class="col-md-12" id="categories_is_empty">
+                <div class="card card-stats castum-form-divition" style="padding:14px;">
+
+                    @if (Model.profile_image_address != null)
+                    {
+                        <img src="@Model.profile_image_address" width="100px;" height="100px" style="display:block;margin:10px auto;border-radius:100%;" />
+                    }
+                    else
+                    {
+                        <img src="~/Assets/assets/img/account.png" width="100px;" height="100px" style="display:block;margin:10px auto;border-radius:100%;"/>
+                    }
+
+                    <!--User Ditales Start-->
+                    <table class="table">
+                        <tr>
+                            <td>نام : @Model.name</td>
+                            <td>نام خانوادگی : @Model.family</td>
+                            <td>شماره تماس : @Model.phone</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>دسته بندی : @Resume.maker.Functions.Statics_Front.Statics_Front.Get_Category_Name_From_Class_Value(Model.id)</td>
+                            <td>شهر : @Resume.maker.Functions.Statics_Front.Statics_Front.Get_City_Name_From_Class_Value(Model.id)[0]</td>
+
+                            @if (!Resume.maker.Functions.Statics_Front.Statics_Front.Get_City_Name_From_Class_Value(Model.id)[1].Equals(""))
+                            {
+                                <td>استان : @Resume.maker.Functions.Statics_Front.Statics_Front.Get_Satate_Name_From_Class_Value(int.Parse(Resume.maker.Functions.Statics_Front.Statics_Front.Get_City_Name_From_Class_Value(Model.id)[1].ToString()))</td>
+                            }
+                            else
+                            {
+                                <td>استان : نامعلوم</td>
+                            }
+
+                            
+                        </tr>
+                        <tr>
+                            <td>سابقه کار : @Model.work_years</td>
+                            <td>تاریخ تولد : @Model.brith_date</td>
+                            <td>آدرس : @Model.address</td>
+                        </tr>
+                    </table>
+                    <!--User Ditales End-->
+
+                    <br />
+
+
+                    @if (Model.certificates_json == null || Model.certificates_json == string.Empty)
+                    {
+                        <textarea id="certificates_json" name="certificates_json" style="display:none;">[]</textarea>
+                    }
+                    else
+                    {
+                        <textarea id="certificates_json" name="certificates_json" style="display:none;">@Model.certificates_json</textarea>
+                    }
+                    <!--User Certificates Start-->
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>مقطع</th>
+                            <th>از تاریخ</th>
+                            <th>تا تاریخ</th>
+                            <th>نام مرکز آموزشی</th>
+                            <th>معدل</th>
+                        </tr>
+                        </thead>
+                        <tbody id="certificate_table_body_view"></tbody>
+                    </table>
+                    <!--User Certificates End-->
+
+                    <br />
+
+
+
+
+
+
+
+                    @if (Model.resume_json == null || Model.resume_json == string.Empty)
+                    {
+                        <textarea id="resume_json" name="resume_json" style="display:none;">[]</textarea>
+                    }
+                    else
+                    {
+                        <textarea id="resume_json" name="resume_json" style="display:none;">@Model.resume_json</textarea>
+                    }
+                    <!--User Resume Start-->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>نام شرکت</th>
+                                <th>وب سایت</th>
+                                <th>سمت</th>
+                                <th>از تاریخ</th>
+                                <th>تا تاریخ</th>
+                                <th>توضیحات اضافه</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resume_table_body_view"></tbody>
+                    </table>
+                    <!--User Resume Start-->
+
+
+                </div>
+            </div>
+            <!--َUser End-->
+
+
+<style>
+    td
+    {
+        text-align:center;
+    }
+
+    .table th, .table td
+    {
+        border:none;
+    }
+</style>
+<script src="~/Assets/assets/demo/demo.js"></script>
+<script>
+    //Get Load Event Start
+    window.addEventListener('load', function (e) {
+        Get_Update_Resume_Table_View();
+        Get_Update_Certificate_Table_View();
+    });
+    //Get Load Event End
+</script>

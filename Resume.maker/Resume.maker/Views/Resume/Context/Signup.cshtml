@@ -1,0 +1,47 @@
+﻿@{ 
+    Layout = null;
+}
+
+<title>رزومه ساز - ثبت نام</title>
+<!--Mobile Scale Friendly Start-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--Mobile Scale Friendly End-->
+<link rel="stylesheet" href="~/Assets/css/style.css">
+<!--Main Content Start-->
+<div class="container" id="container">
+    <div class="form-container sign-in-container">
+        <form method="POST">
+            <h1>ثبت نام</h1>
+            <span>برای ثبت نام اطلاعات خواسته شده را وارد کنید</span>
+            <input type="text" placeholder="نام" id="username" name="name" required/>
+            <input type="text" placeholder="نام خانوادگی" id="password" name="family" required/>
+            <input type="text" placeholder="نام کاربری" id="username" name="username" required/>
+            <input type="password" placeholder="رمزعبور" id="password" name="password" required/>
+            <input type="submit" value="ثبت نام" class="btn" style="cursor:pointer;" required/>
+            <a style="cursor:pointer;" href="~/Login">ورورد</a>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button onclick="OnClick_Submit(this)" class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                
+                @if (ViewBag.Message == null)
+                {
+                    <h1>سلام رفیق</h1>
+                    <p>این سرویس سرویس رزومه ساز هست و شما میتونید با این یک دونه رزومه برای خودت بسازی</p>
+                }
+                else
+                {
+                    <h1>خطا</h1>
+                    <p>@ViewBag.Message</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!--Main Content End-->

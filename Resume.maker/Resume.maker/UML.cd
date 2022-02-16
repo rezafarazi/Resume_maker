@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Resume.maker.Models.Categories_Tbl">
+    <Position X="1" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAQAAAAAgAAAAAEAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Models\Database_Models\Categories_Tbl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Resume.maker.Models.Cites_tbl">
+    <Position X="5.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQBAAAAgAAAAAAAAAAAAAAAACAgA=</HashCode>
+      <FileName>Models\Database_Models\Cites_tbl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Resume.maker.Models.Database_DB">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAACAAAABAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Models\Database_Models\Database_DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Resume.maker.Models.Users_Tbl">
+    <Position X="7.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAEAQAAAAAAAAAAwABICAEAAgIEAEQgAAAAAwAAAgE=</HashCode>
+      <FileName>Models\Database_Models\Users_Tbl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Resume.maker.Models.Viewers_tbl">
+    <Position X="3.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAQAAAAAAAAAAAAAAAAAAAAAAAAACAAAgA=</HashCode>
+      <FileName>Models\Database_Models\Viewers_tbl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Data.Entity.DbContext" Collapsed="true">
+    <Position X="10.25" Y="3" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

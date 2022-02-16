@@ -1,0 +1,149 @@
+﻿@{
+    Layout = "~/Views/Resume/Theme/Main_Theme.cshtml";
+}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" href="javascript:;">دسته بندی ها</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+
+        </div>
+    </div>
+</nav>
+<!-- End Navbar -->
+
+
+<!--Main Content Start-->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <!--New Categories Start-->
+            <div class="col-md-6" id="categories_is_empty">
+                <div class="card card-stats castum-form-divition" style="padding:14px;">
+                    <div class="navbar-wrapper">
+                        
+                        <!--Card Title Start-->
+                        <p style="text-align:right;">دسته بندی جدید</p>
+                        <!--Card Title End-->
+
+                        <!--New Category Form Start-->
+                        <form method="post">
+                            <input style="width:100%;" type="text" placeholder="دسته بندی جدید" name="Category_Name"/>
+                            <input type="submit" class="btn btn-primary pull-right" value="تایید" style="width:100%;" />
+                        </form>
+                        <!--New Category Form End-->
+
+                    </div>
+                </div>
+            </div>
+            <!--New Categories End-->
+
+          
+
+            <!--Edit Categories Start-->
+            <div class="col-md-6" id="edit_category_panel" style="display:none;">
+                <div class="card card-stats castum-form-divition" style="padding:14px;">
+                    <div class="navbar-wrapper">
+
+                        <!--Card Title Start-->
+                        <p style="text-align:right;">ویرایش</p>
+                        <!--Card Title End-->
+
+                        <!--New Category Form Start-->
+                        <form method="post" action="~/Get_Edit_Category">
+                            <input style="width:100%;display:none;" name="category_id" type="text" placeholder="دسته بندی جدید" id="category_id"/>
+                            <input style="width:100%;" type="text" placeholder="دسته بندی جدید" name="category_title" id="category_title" name="category_title"/>
+                            <select style="width:100%;" class="form-control" id="category_status" name="category_status">
+                                <option value="visible">قابل مشاهده</option>
+                                <option value="hide">غیرقابل مشاهده</option>
+                            </select>
+                            <br />
+                            <input type="submit" class="btn btn-primary pull-right" value="تایید" style="width:100%;" />
+                        </form>
+                        <!--New Category Form End-->
+
+                    </div>
+                </div>
+            </div>
+            <!--Edit Categories End-->
+
+
+
+
+            <!--All Categories Start-->
+            <div class="col-md-12" id="categories_is_empty">
+                <div class="card card-stats castum-form-divition" style="padding:14px;">
+
+                    <!--Card Title Start-->
+                    <p style="text-align:right;">همه دسته بندی ها</p>
+                    <!--Card Title End-->
+                    <!--All Categoris Table Start-->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <th>نام</th>
+                                <th>وضعیت</th>
+                                <th>حذف</th>
+                                <th>ویرایش</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                List<Resume.maker.Models.Categories_Tbl> All_Categories = Resume.maker.Functions.Statics_Front.Statics_Front.Get_All_Categories_Data();
+                                int Category_Row_No = 1;
+                                for (int i = 0; i < All_Categories.Count; i++)
+                                {
+                                    if (!All_Categories[i].title.Equals("هیچکدام"))
+                                    {
+                                        <tr>
+                                            <td>@Category_Row_No</td>
+                                            <td>@All_Categories[i].title</td>
+                                            @if (All_Categories[i].enable_flag.Equals(true))
+                                            {
+                                                <td>قابل مشاهده</td>
+                                            }
+                                            else
+                                            {
+                                                <td>غیر قابل مشاهده</td>
+                                            }
+                                            <td><a href="~/Delete_Category/@All_Categories[i].id"><i style="color:#F00;" class="fa fa-close"></i></a></td>
+                                            <td><i onclick="Get_Category(@All_Categories[i].id)" style="color:#9c27b0;cursor:pointer;" class="fa fa-edit"></i></td>
+                                        </tr>
+                                        Category_Row_No++;
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <!--All Categoris Table End-->
+
+                    <style>
+                        .table {
+                            text-align: center;
+                        }
+                    </style>
+
+                </div>
+            </div>
+            <!--All Categories End-->
+
+
+
+        </div>
+    </div>
+</div>
+<!--Main Content End-->
+                    
+
+
+<script src="~/Assets/assets/demo/demo.js"></script>

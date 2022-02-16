@@ -1,0 +1,243 @@
+﻿@model Resume.maker.Models.Output_Models.User_Model
+@{
+    Layout = "~/Views/Resume/Theme/Main_Theme.cshtml";
+}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" href="javascript:;">مشاهده رزومه</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+
+        </div>
+    </div>
+</nav>
+<!-- End Navbar -->
+
+
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!--َUser Profile-->
+            <div class="col-md-12" id="categories_is_empty">
+                <div class="card card-stats castum-form-divition" style="padding:14px;">
+
+                    <form method="post" enctype="multipart/form-data">
+
+
+                        <label style="display:block;margin:0 auto;width:max-content;cursor:pointer;">
+                        @if (Model.profile_image_address != null)
+                        {
+                            <img src="@Model.profile_image_address" width="100px;" height="100px" style="display:block;margin:10px auto;border-radius:100%;" />
+                        }
+                        else
+                        {
+                            <img src="~/Assets/assets/img/account.png" width="100px;" height="100px" style="display:block;margin:10px auto;border-radius:100%;"/>
+                        }
+                            <input type="file" name="profile_image" style="display:none;" accept=" image/png" />
+                        </label>
+
+                        <!--User Ditales Start-->
+                        <table class="table">
+                            <tr>
+                                <td><input id="new_user_name_namebox" class="form-control" type="text" placeholder="نام" style="text-align: center;" name="name" value="@Model.name"></td>
+                                <td><input id="new_user_name_namebox" class="form-control" type="text" placeholder="نام خانوادگی" style="text-align: center;" name="family" value="@Model.family"></td>
+                                <td><input id="new_user_name_namebox" class="form-control" type="text" placeholder="شماره تماس" style="text-align: center;" name="phone" value="@Model.phone"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select class="form-control" name="category_id">
+                                        @{ 
+                                            List<Resume.maker.Models.Categories_Tbl> All_Categories = Resume.maker.Functions.Statics_Front.Statics_Front.Get_All_Categories();
+                                            for (int i = 0; i < All_Categories.Count; i++)
+                                            {
+                                                <option value="@All_Categories[i].id">@All_Categories[i].title</option>
+                                            }
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    <select id="state_id" class="form-control" name="state_id" onchange="OnChange_Change_State_Event(this)">
+                                        @{
+                                            List<Resume.maker.Models.Cites_tbl> All_Cities = Resume.maker.Functions.Statics_Front.Statics_Front.Get_All_States();
+                                            for (int i = 0; i < All_Cities.Count; i++)
+                                            {
+                                                <option value="@All_Cities[i].id">@All_Cities[i].city_name</option>
+                                            }
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    <select id="city_id" class="form-control" name="city_id">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input id="new_user_name_namebox" class="form-control" type="text" placeholder="سابقیه" style="text-align: center;" name="work_years" value="@Model.work_years"></td>
+                                <td><input id="new_user_name_namebox" class="form-control" type="text" placeholder="تاریخ تولد" style="text-align: center;" name="brith_date" value="@Model.brith_date"></td>
+                                <td><input id="new_user_name_namebox" class="form-control" type="text" placeholder="آدرس" style="text-align: center;" name="address" value="@Model.address"></td>
+                            </tr>
+                        </table>
+                        <!--User Ditales End-->
+
+
+
+
+
+
+                        <br />
+                        <br />
+                        <br />
+
+                        <p style="text-align:right;padding-right:10px;">مدارک</p>
+                        
+                        @if (Model.certificates_json == null || Model.certificates_json == string.Empty)
+                        {
+                            <textarea id="certificates_json" name="certificates_json" style="display:none;">[]</textarea>
+                        }
+                        else
+                        {
+                            <textarea id="certificates_json" name="certificates_json" style="display:none;">@Model.certificates_json</textarea>
+                        }
+
+                        <table class="table" style="margin-bottom:0;">
+                            <tr>
+                                <td><input id="new_certificate_type" class="form-control" type="text" placeholder="مقطع" style="text-align: center;"></td>
+                                <td><input id="new_certificate_start" class="form-control" type="text" placeholder="از تاریخ" style="text-align: center;"></td>
+                                <td><input id="new_certificate_end" class="form-control" type="text" placeholder="تا تاریخ" style="text-align: center;"></td>
+                                <td><input id="new_certificate_school" class="form-control" type="text" placeholder="نام مرکز آموزشی" style="text-align: center;"></td>
+                                <td><input id="new_certificate_avrage" class="form-control" type="text" placeholder="معدل" style="text-align: center;"></td>
+                            </tr>
+                        </table>
+
+
+                        <table class="table" style="margin-top:0;">
+                            <tr>
+                                <td><a style="cursor:pointer;width:100%;display:block;background:#9c27b0;color:#FFF;padding:8px;" onclick="Onclick_New_Resume_Certificate_Event(this)">تایید</a></td>
+                            </tr>
+                        </table>
+
+
+                        <!--User Certificates Start-->
+                        <table class="table" style="margin-bottom:0px;">
+                            <thead>
+                                <tr>
+                                    <th>مقطع</th>
+                                    <th>از تاریخ</th>
+                                    <th>تا تاریخ</th>
+                                    <th>نام مرکز آموزشی</th>
+                                    <th>معدل</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="certificate_table_body">
+                            </tbody>
+                        </table>
+                        <!--User Certificates End-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+
+                        <p style="text-align:right;padding-right:10px;">رزومه</p>
+
+                        @if (Model.resume_json == null || Model.resume_json == string.Empty)
+                        {
+                            <textarea id="resume_json" name="resume_json" style="display:none;">[]</textarea>
+                        }
+                        else
+                        {
+                            <textarea id="resume_json" name="resume_json" style="display:none;">@Model.resume_json</textarea>
+                        }
+                        <table class="table" style="margin-top:0;">
+                            <tr>
+                                <td><input id="update_resume_new_companey_name" class="form-control" type="text" placeholder="نام شرکت" style="text-align: center;"></td>
+                                <td><input id="update_resume_new_companey_website" class="form-control" type="text" placeholder="وب سایت" style="text-align: center;"></td>
+                                <td><input id="update_resume_new_companey_job" class="form-control" type="text" placeholder="سمت" style="text-align: center;"></td>
+                                <td><input id="update_resume_new_companey_start_date" class="form-control" type="text" placeholder="از تاریخ" style="text-align: center;"></td>
+                                <td><input id="update_resume_new_companey_until_date" class="form-control" type="text" placeholder="تا تاریخ" style="text-align: center;"></td>
+                                <td><input id="update_resume_new_companey_until_other_ditales" class="form-control" type="text" placeholder="توضیحات اضافه" style="text-align: center;"></td>
+                            </tr>
+                        </table>
+
+
+                        <table class="table">
+                            <tr>
+                                <td><a style="cursor:pointer;width:100%;display:block;background:#9c27b0;color:#FFF;padding:8px;" onclick="Onclick_New_Resume_Event(this)">تایید</a></td>
+                            </tr>
+                        </table>
+
+                        <!--User Resume Start-->
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>نام شرکت</th>
+                                    <th>وب سایت</th>
+                                    <th>سمت</th>
+                                    <th>از تاریخ</th>
+                                    <th>تا تاریخ</th>
+                                    <th>توضیحات اضافه</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="resume_table_body">
+                            
+                            </tbody>
+                        </table>
+                        <!--User Resume Start-->
+
+                        <br />
+                        <input type="submit" class="btn btn-primary pull-right" value="تایید نهایی" style="width:100%;"/>
+
+                    </form>
+                </div>
+            </div>
+            <!--َUser End-->
+
+
+<style>
+    td
+    {
+        text-align:center;
+    }
+
+    .table th, .table td
+    {
+        border:none;
+    }
+</style>
+<script src="~/Assets/assets/demo/demo.js"></script>
+            <script>
+                //Get Load Event Start
+                window.addEventListener('load', function (e) {
+                    Get_Update_Resume_Table();
+                    Get_Update_Certificate_Table();
+
+                });
+                //Get Load Event End
+            </script>

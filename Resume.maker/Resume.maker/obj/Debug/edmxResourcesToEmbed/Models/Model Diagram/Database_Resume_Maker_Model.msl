@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Database_Resume_Maker_ModelStoreContainer" CdmEntityContainer="Database_Resume_Maker_ModelContainer">
+    <EntitySetMapping Name="Users_tbl">
+      <EntityTypeMapping TypeName="IsTypeOf(Database_Resume_Maker_Model.Users_tbl)">
+        <MappingFragment StoreEntitySet="Users_tbl">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="family" ColumnName="family" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="login_token" ColumnName="login_token" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+          <ScalarProperty Name="enable_flag" ColumnName="enable_flag" />
+          <ScalarProperty Name="resume_json" ColumnName="resume_json" />
+          <ScalarProperty Name="certificates_json" ColumnName="certificates_json" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="user_type" ColumnName="user_type" />
+          <ScalarProperty Name="work_years" ColumnName="work_years" />
+          <ScalarProperty Name="last_edit" ColumnName="last_edit" />
+          <ScalarProperty Name="profile_image" ColumnName="profile_image" />
+          <ScalarProperty Name="category_id" ColumnName="category_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories_tbl">
+      <EntityTypeMapping TypeName="IsTypeOf(Database_Resume_Maker_Model.Categories_tbl)">
+        <MappingFragment StoreEntitySet="Categories_tbl">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="enable_flag" ColumnName="enable_flag" />
+          <ScalarProperty Name="top_cat_id" ColumnName="top_cat_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="viewers_tbl">
+      <EntityTypeMapping TypeName="IsTypeOf(Database_Resume_Maker_Model.viewers_tbl)">
+        <MappingFragment StoreEntitySet="viewers_tbl">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="user_viewer_id" ColumnName="user_viewer_id" />
+          <ScalarProperty Name="date_time" ColumnName="date_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cites_tbl">
+      <EntityTypeMapping TypeName="IsTypeOf(Database_Resume_Maker_Model.cites_tbl)">
+        <MappingFragment StoreEntitySet="cites_tbl">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="city_name" ColumnName="city_name" />
+          <ScalarProperty Name="subcity" ColumnName="subcity" />
+          <ScalarProperty Name="enbale_flag" ColumnName="enbale_flag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Categories_tblUsers_tbl" TypeName="Database_Resume_Maker_Model.Categories_tblUsers_tbl" StoreEntitySet="Users_tbl">
+      <EndProperty Name="Categories_tbl">
+        <ScalarProperty Name="Id" ColumnName="Categories_tbl_Id" />
+      </EndProperty>
+      <EndProperty Name="Users_tbl">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Users_tblviewers_tbl" TypeName="Database_Resume_Maker_Model.Users_tblviewers_tbl" StoreEntitySet="viewers_tbl">
+      <EndProperty Name="Users_tbl">
+        <ScalarProperty Name="Id" ColumnName="Users_tbl_Id" />
+      </EndProperty>
+      <EndProperty Name="viewers_tbl">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

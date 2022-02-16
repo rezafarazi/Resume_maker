@@ -1,0 +1,288 @@
+﻿@model Resume.maker.Models.Output_Models.User_Model
+@{
+    Layout = "~/Views/Resume/Theme/Main_Theme.cshtml";
+    List<Resume.maker.Models.Cites_tbl> Cities = Resume.maker.Functions.Statics_Front.Statics_Front.Get_All_Cities();
+}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" href="javascript:;">همه کاربر ها</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end">
+
+        </div>
+    </div>
+</nav>
+<!-- End Navbar -->
+
+
+<!--Main Content Start-->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <!--New City Start-->
+            <div class="col-md-6" id="categories_is_empty">
+                <div class="card card-stats castum-form-divition" style="padding:14px;">
+                    <div class="navbar-wrapper">
+                        
+                        <!--Card Title Start-->
+                        <p style="text-align:right;">جست و جو</p>
+                        <!--Card Title End-->
+
+                        <!--Get Search User Start-->
+                        <form method="post">
+                            <input style="width:100%;" type="text" placeholder="جست و جو" name="Search_Value"/>
+                            <br />
+                            <input type="submit" class="btn btn-primary pull-right" value="جست و جو" style="width:100%;" />
+                        </form>
+                        <!--Get Search User End-->
+
+                    </div>
+                </div>
+            </div>
+            <!--New City End-->
+
+
+
+
+
+            <!--Managers Start-->
+            <div class="col-md-6" id="categories_is_empty">
+                <div class="card card-stats castum-form-divition" style="padding:14px;">
+                    <div class="navbar-wrapper">
+
+                        <!--Card Title Start-->
+                        <p style="text-align:right;">مدیر ها</p>
+                        <!--Card Title End-->
+                        
+
+                        <!--Managers Table Start-->
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th>نام</th>
+                                    <th>نام خانوادگی</th>
+                                    <th>نام کاربری</th>
+                                    <th>شماره تماس</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ 
+                                    int Admin_Row = 1;
+                                    List<Resume.maker.Models.Users_Tbl> Admins = Resume.maker.Functions.Statics.Static.Get_All_Admins();
+                                    for (int i = 0; i < Admins.Count; i++)
+                                    {
+                                        <tr>
+                                            <td>@Admin_Row</td>
+                                            <td>@Admins[i].name</td>
+                                            <td>@Admins[i].family</td>
+                                            <td>@Admins[i].username</td>
+                                            <td><a href="tel:@Admins[i].phone">@Admins[i].phone</a></td>
+                                        </tr>
+                                        Admin_Row++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        <!--Managers Table End-->
+
+
+                    </div>
+                </div>
+            </div>
+            <!--Managers End-->
+
+
+
+
+
+            <!--All City Start-->
+            <div class="col-md-12" id="categories_is_empty">
+                <div class="card card-stats castum-form-divition" style="padding:14px;">
+                    <div class="navbar-wrapper">
+
+                        <!--Card Title Start-->
+                        @if(ViewData["Search_User"] != null)
+                        {
+                            <p style="text-align:right;">درحال جست و جوی "@ViewBag.Search_User"</p>
+                        }
+                        else
+                        {
+                            <p style="text-align:right;">کاربران</p>
+                        }
+                        <!--Card Title End-->
+                        
+                        <table class="table">
+                            <thead>
+                                <th>ردیف</th>
+                                <th>نام</th>
+                                <th>نام خانوادگی</th>
+                                <th>نام کاربری</th>
+                                <th>شماره تماس</th>
+                                <th>وضعیت</th>
+                                <th>دسته بندی</th>
+                                <th>شهر</th>
+                                @if (Model.username.Equals("Rezafta") || Model.username.Equals("Admin"))
+                                {
+                                    <th>عملیات</th>
+                                }
+                            </thead>
+                            <tbody>
+                                @{ 
+                                    int User_Row = 1;
+                                    List<Resume.maker.Models.Users_Tbl> Users;
+                                    if(ViewData["Search_User"] != null)
+                                    {
+                                        Users = Resume.maker.Functions.Statics.Static.Get_Search_Users(ViewData["Search_User"].ToString());
+                                    }
+                                    else
+                                    {
+                                        Users = Resume.maker.Functions.Statics.Static.Get_All_Users();
+                                    }
+                                    for (int i = 0; i < Users.Count; i++)
+                                    {
+                                        <tr>
+                                            <td>@User_Row</td>
+                                            <td>@Users[i].name</td>
+                                            <td>@Users[i].family</td>
+                                            <td>@Users[i].username</td>
+                                            <td><a href="tel:@Users[i].phone">@Users[i].phone</a></td>
+                                            @if (Users[i].enable_flag == true)
+                                            {
+                                                <td>فعال</td>
+                                            }
+                                            else
+                                            {
+                                                <td>غیر فعال</td>
+                                            }
+                                            <td>@Resume.maker.Functions.Statics.Static.Category_Name(Users[i].id)</td>
+                                            <td>@Resume.maker.Functions.Statics.Static.City_Name(Users[i].id)</td>
+                                            @if (Model.username.Equals("Rezafta") || Model.username.Equals("Admin"))
+                                            {
+                                                <th><i onclick="OnClick_Edit_User(@Users[i].id)" style="color:#9c27b0;cursor:pointer;" class="fa fa-edit"></i></th>
+                                            }
+                                        </tr>
+                                        User_Row++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <!--All City End-->
+
+
+
+
+        </div>
+    </div>
+</div>
+<!--Main Content End-->
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Edit User Start-->
+<div id="user_edit_dialog_main_background" style="display:none;">
+    <div id="user_edit_dialog_main_content">
+        
+        <select style="width:100%;" class="form-control" id="user_type">
+            <option value="user">کاربر</option>
+            <option value="admin">مدیر</option>
+        </select>
+
+        <br />
+
+        <select style="width:100%;" class="form-control" id="user_status">
+            <option value="active">فعال</option>
+            <option value="diactive">غیرفعال</option>
+        </select>
+
+        <br />
+
+        <a style="background:#9c27b0;width:100%;color:#FFF;cursor:pointer;display: block;text-align: center;padding: 5px;border-radius:4px;" onclick="OnClick_Done_Edit_User(this)">تایید</a>
+
+    </div>
+</div>
+<!--Edit User End-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Script Start-->
+<script src="~/Assets/assets/demo/demo.js"></script>
+<!--Script End-->
+
+
+
+
+
+
+
+<!--Style Start-->
+<style>
+    
+    table 
+    {
+        text-align: center;
+    }
+
+    #user_edit_dialog_main_background
+    {
+        width:100vw;
+        height:100vh;
+        background:#66666666;
+        position:fixed;
+        top:0;
+        left:0;
+        z-index:9;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    #user_edit_dialog_main_content
+    {
+        width:400px;
+        background:#FFF;
+        border-radius:4px;
+        padding:25px;
+    }
+
+</style>
+<!--Style End-->
